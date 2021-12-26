@@ -12,7 +12,7 @@ services:
     restart: always
     volumes:
       - .:/opt
-    command: [ "python", "/opt/python/greeter_server.py" ]
+    command: [ "python", "/opt/python/route_guide/server.py" ]
     networks:
       - python-network
 

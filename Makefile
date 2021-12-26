@@ -25,4 +25,4 @@ bash2: ## bash to client container
 
 .PHONY: client
 client: ## make client request
-	docker container exec python-container-2 python /opt/python/greeter_client.py
+	docker container exec python-container-2 python /opt/python/route_guide/client.py
