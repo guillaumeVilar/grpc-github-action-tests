@@ -1,0 +1,29 @@
+version: "3.9"
+
+networks:
+  python-network:
+
+services:
+  python-container-1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: python-container-1
+    restart: always
+    volumes:
+      - .:/opt
+    command: [ "python", "/opt/python/greeter_server.py" ]
+    networks:
+      - python-network
+
+  python-container-2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: python-container-2
+    restart: always
+    volumes:
+      - .:/opt
+    command: [ "sleep", "infinity" ]
+    networks:
+      - python-network
