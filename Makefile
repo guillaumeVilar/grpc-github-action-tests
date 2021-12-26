@@ -13,14 +13,14 @@ rm: ## rm the docker images
 
 .PHONY: start
 start: ## start the docker containers
-	docker-compose up
+	docker-compose up -d
 
 .PHONY: bash1
 bash1: ## bash to server container
 	docker container exec -it python-container-1 bash
 
 .PHONY: bash2
-bash2: ## bash to server container
+bash2: ## bash to client container
 	docker container exec -it python-container-2 bash
 
 .PHONY: client
