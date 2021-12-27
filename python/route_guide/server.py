@@ -9,6 +9,12 @@ class RouteGuideServicer(route_guide_pb2_grpc.RouteGuideServicer):
     def GetFeature(self, request, context):
         return route_guide_pb2.Feature(name=str(time.time()), location=request)
     
+    def ListFeatures(self, request, context):
+      for i in range(5):
+        yield route_guide_pb2.Feature(name=str(i), location=request.lo)
+        # yield route_guide_pb2.Feature(name=str(i), location=request.hi)
+        time.sleep(1)        
+
     
 def serve():
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
