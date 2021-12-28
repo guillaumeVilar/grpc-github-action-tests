@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x14\x65xecute_script.proto\x12\rexecutescript\"s\n\x0cScriptChoice\x12\x32\n\x06script\x18\x02 \x01(\x0e\x32\".executescript.ScriptChoice.Script\"/\n\x06Script\x12\x0b\n\x07SCRIPT0\x10\x00\x12\x0b\n\x07SCRIPT1\x10\x01\x12\x0b\n\x07SCRIPT2\x10\x02\"\x1e\n\x0cScriptResult\x12\x0e\n\x06result\x18\x01 \x01(\t2W\n\x08\x45xecuter\x12K\n\rExecuteScript\x12\x1b.executescript.ScriptChoice\x1a\x1b.executescript.ScriptResult0\x01\x62\x06proto3'
+  serialized_pb=b'\n\x14\x65xecute_script.proto\x12\rexecutescript\"s\n\x0cScriptChoice\x12\x32\n\x06script\x18\x02 \x01(\x0e\x32\".executescript.ScriptChoice.Script\"/\n\x06Script\x12\x0b\n\x07SCRIPT0\x10\x00\x12\x0b\n\x07SCRIPT1\x10\x01\x12\x0b\n\x07SCRIPT2\x10\x02\"@\n\x0cScriptResult\x12\x0e\n\x06stdout\x18\x01 \x01(\t\x12\x0e\n\x06stderr\x18\x02 \x01(\t\x12\x10\n\x08\x65xitcode\x18\x03 \x01(\x05\x32W\n\x08\x45xecuter\x12K\n\rExecuteScript\x12\x1b.executescript.ScriptChoice\x1a\x1b.executescript.ScriptResult0\x01\x62\x06proto3'
 )
 
 
@@ -97,9 +97,23 @@ _SCRIPTRESULT = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='result', full_name='executescript.ScriptResult.result', index=0,
+      name='stdout', full_name='executescript.ScriptResult.stdout', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='stderr', full_name='executescript.ScriptResult.stderr', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='exitcode', full_name='executescript.ScriptResult.exitcode', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -116,7 +130,7 @@ _SCRIPTRESULT = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=156,
-  serialized_end=186,
+  serialized_end=220,
 )
 
 _SCRIPTCHOICE.fields_by_name['script'].enum_type = _SCRIPTCHOICE_SCRIPT
@@ -148,8 +162,8 @@ _EXECUTER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=188,
-  serialized_end=275,
+  serialized_start=222,
+  serialized_end=309,
   methods=[
   _descriptor.MethodDescriptor(
     name='ExecuteScript',

@@ -12,7 +12,9 @@ message ScriptChoice{
 }
 
 message ScriptResult{
-    string result = 1;
+    string stdout = 1;
+    string stderr = 2;
+    int32 exitcode = 3;
 }
 
 // The greeting service definition.

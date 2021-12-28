@@ -21,7 +21,7 @@ class ExecuterServicer(execute_script_pb2_grpc.ExecuterServicer):
                 nextline = popen.stdout.readline()
                 if popen.poll() is not None: 
                     break
-                yield execute_script_pb2.ScriptResult(result = nextline)
+                yield execute_script_pb2.ScriptResult(stdout = nextline)
             
         elif (request.script == execute_script_pb2.ScriptChoice.SCRIPT1):
             logging.info("Executing Script1")
