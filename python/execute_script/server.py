@@ -13,13 +13,15 @@ class ExecuterServicer(execute_script_pb2_grpc.ExecuterServicer):
         logging.info("Request {}".format(request))
         logging.info("Request.state {}".format(request.script))
         if (request.script == execute_script_pb2.ScriptChoice.SCRIPT0):
-            logging.info("Executing Script0")
+            logging.info("Executing Script0")            
+            popen = subprocess.Popen(["/opt/python/execute_script/script0.sh"], stdout = subprocess.PIPE)            
             
-            # TODO: Improve that part in order to yield the result of the script as the script is executing
-            # Instead of buffering the stdout of the script in the 'out' variable.
-            p = subprocess.Popen(["/opt/python/execute_script/script0.sh"], stdout = subprocess.PIPE)
-            out, err = p.communicate()
-            yield execute_script_pb2.ScriptResult(result = out)
+            # Poll process for new output until finished
+            while True: 
+                nextline = popen.stdout.readline()
+                if popen.poll() is not None: 
+                    break
+                yield execute_script_pb2.ScriptResult(result = nextline)
             
         elif (request.script == execute_script_pb2.ScriptChoice.SCRIPT1):
             logging.info("Executing Script1")
