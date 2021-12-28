@@ -16,6 +16,7 @@ def run():
     for result in resultStream:
         logging.info("Result stdout: {}".format(result.stdout))
         logging.info("Result stderr: {}".format(result.stderr))
+        logging.info("Result exitCode: {}".format(result.exitcode))  
 
 
 

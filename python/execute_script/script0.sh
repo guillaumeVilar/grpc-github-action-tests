@@ -7,3 +7,4 @@ do
    sleep 1
 done
 >&2 echo [END] This message goes to stderr >&2
+exit 1

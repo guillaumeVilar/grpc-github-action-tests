@@ -29,12 +29,17 @@ class ExecuterServicer(execute_script_pb2_grpc.ExecuterServicer):
                     logging.info("Exiting script")
                     # Getting stderr at the end of the script
                     output, stderr = popen.communicate()
-                    logging.info("stderr_nextline: {}".format(stderr))
+                    logging.info("stderr: {}".format(stderr))
                     yield execute_script_pb2.ScriptResult(stderr = stderr)
                     break
 
                 logging.info("stdout_nextline: {}".format(stdout_nextline))    
                 yield execute_script_pb2.ScriptResult(stdout = stdout_nextline)
+            
+            # Yield exit code of the process
+            exitCode = popen.returncode
+            logging.info("exitCode: {}".format(exitCode))  
+            yield execute_script_pb2.ScriptResult(exitcode = exitCode)
             
         elif (request.script == execute_script_pb2.ScriptChoice.SCRIPT1):
             logging.info("Executing Script1")
