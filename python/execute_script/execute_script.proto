@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package executescript;
+
+message ScriptChoice{
+    enum Script {
+        SCRIPT0 = 0;
+        SCRIPT1 = 1;
+        SCRIPT2 = 2;
+    }
+    Script script = 2;
+}
+
+message ScriptResult{
+    string result = 1;
+}
+
+// The greeting service definition.
+service Executer {
+    rpc ExecuteScript(ScriptChoice) returns (stream ScriptResult);
+}
+  
