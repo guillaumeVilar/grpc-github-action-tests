@@ -13,15 +13,28 @@ class ExecuterServicer(execute_script_pb2_grpc.ExecuterServicer):
         logging.info("Request {}".format(request))
         logging.info("Request.state {}".format(request.script))
         if (request.script == execute_script_pb2.ScriptChoice.SCRIPT0):
-            logging.info("Executing Script0")            
-            popen = subprocess.Popen(["/opt/python/execute_script/script0.sh"], stdout = subprocess.PIPE)            
+            logging.info("Executing Script0")
+            
+            # This function will redirect stderr to stdin. This could be useful in the case if the order where stdin and stderr arrives matter. 
+            # popen = subprocess.Popen(["/opt/python/execute_script/script0.sh"], stdout = subprocess.PIPE, stderr=subprocess.STDOUT)           
+            
+            # This function will read stderr at the end of the process.  
+            popen = subprocess.Popen(["/opt/python/execute_script/script0.sh"], stdout = subprocess.PIPE, stderr=subprocess.PIPE)            
             
             # Poll process for new output until finished
             while True: 
-                nextline = popen.stdout.readline()
+                stdout_nextline = popen.stdout.readline()
+                
                 if popen.poll() is not None: 
+                    logging.info("Exiting script")
+                    # Getting stderr at the end of the script
+                    output, stderr = popen.communicate()
+                    logging.info("stderr_nextline: {}".format(stderr))
+                    yield execute_script_pb2.ScriptResult(stderr = stderr)
                     break
-                yield execute_script_pb2.ScriptResult(stdout = nextline)
+
+                logging.info("stdout_nextline: {}".format(stdout_nextline))    
+                yield execute_script_pb2.ScriptResult(stdout = stdout_nextline)
             
         elif (request.script == execute_script_pb2.ScriptChoice.SCRIPT1):
             logging.info("Executing Script1")

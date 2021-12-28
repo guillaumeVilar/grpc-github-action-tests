@@ -14,7 +14,8 @@ def run():
     resultStream = stub.ExecuteScript(script0)
 
     for result in resultStream:
-        logging.info("Result {}".format(result.stdout))
+        logging.info("Result stdout: {}".format(result.stdout))
+        logging.info("Result stderr: {}".format(result.stderr))
 
 
 
