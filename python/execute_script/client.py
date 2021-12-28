@@ -10,7 +10,7 @@ def run():
     stub = execute_script_pb2_grpc.ExecuterStub(channel)
     
     # Execution of script0
-    script0 = execute_script_pb2.ScriptChoice(script = execute_script_pb2.ScriptChoice.SCRIPT2)
+    script0 = execute_script_pb2.ScriptChoice(script = execute_script_pb2.ScriptChoice.SCRIPT0)
     resultStream = stub.ExecuteScript(script0)
 
     for result in resultStream:

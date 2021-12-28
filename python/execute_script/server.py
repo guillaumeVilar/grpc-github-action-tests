@@ -4,6 +4,7 @@ import execute_script_pb2_grpc
 import time
 from concurrent import futures
 import logging
+import subprocess
 
 
 # ExecuterServicer provides an implementation of the methods of the Executer service.
@@ -13,15 +14,22 @@ class ExecuterServicer(execute_script_pb2_grpc.ExecuterServicer):
         logging.info("Request.state {}".format(request.script))
         if (request.script == execute_script_pb2.ScriptChoice.SCRIPT0):
             logging.info("Executing Script0")
+            
+            # TODO: Improve that part in order to yield the result of the script as the script is executing
+            # Instead of buffering the stdout of the script in the 'out' variable.
+            p = subprocess.Popen(["/opt/python/execute_script/script0.sh"], stdout = subprocess.PIPE)
+            out, err = p.communicate()
+            yield execute_script_pb2.ScriptResult(result = out)
+            
         elif (request.script == execute_script_pb2.ScriptChoice.SCRIPT1):
             logging.info("Executing Script1")
         elif (request.script == execute_script_pb2.ScriptChoice.SCRIPT2):
             logging.info("Executing Script2")    
         
         # Simulate the execution of the script
-        for i in range(5):
-            yield execute_script_pb2.ScriptResult(result = str(request.script) + ' - ' + str(i) + '...')
-            time.sleep(1)
+        # for i in range(5):
+        #     yield execute_script_pb2.ScriptResult(result = str(request.script) + ' - ' + str(i) + '...')
+        #     time.sleep(1)
     
 def serve():
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
