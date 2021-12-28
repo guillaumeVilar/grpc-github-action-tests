@@ -1,19 +1,19 @@
 .PHONY: stop
 stop: ## Stop the docker containers
 	docker-compose down
-	docker container stop python-container-1
-	docker container rm python-container-1
-	docker container stop python-container-2
-	docker container rm python-container-2
+
+.PHONY: start
+start: ## start the docker containers
+	docker-compose up -d
+
+.PHONY: restart
+restart: stop start## restart the docker containers
+
 
 .PHONY: rm
 rm: ## rm the docker images
 	docker image rm grpc-github-action-tests_python-container-1
 	docker image rm grpc-github-action-tests_python-container-2
-
-.PHONY: start
-start: ## start the docker containers
-	docker-compose up -d
 
 .PHONY: bash1
 bash1: ## bash to server container
@@ -25,4 +25,8 @@ bash2: ## bash to client container
 
 .PHONY: client
 client: ## make client request
-	docker container exec python-container-2 python /opt/python/route_guide/client.py
+	docker container exec python-container-2 python /opt/python/execute_script/client.py
+
+.PHONY: server
+server: ## make server request
+	docker container exec python-container-1 python /opt/python/execute_script/server.py
